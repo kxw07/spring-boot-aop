@@ -1,0 +1,9 @@
+<aspectj>
+    <aspects>
+        <aspect name="com.example.springbootaop.config.JavaRestTemplateAspect"/>
+    </aspects>
+
+    <weaver options="-verbose -showWeaveInfo">
+        <include within="org.springframework.web.client.RestTemplate"/>
+    </weaver>
+</aspectj>
