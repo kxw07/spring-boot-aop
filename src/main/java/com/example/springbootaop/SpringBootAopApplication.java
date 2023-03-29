@@ -6,7 +6,7 @@ import org.springframework.context.annotation.EnableLoadTimeWeaving;
 
 
 @SpringBootApplication
-@EnableLoadTimeWeaving
+//@EnableLoadTimeWeaving
 public class SpringBootAopApplication {
 
     public static void main(String[] args) {

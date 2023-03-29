@@ -63,36 +63,64 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>aspectj-maven-plugin</artifactId>
+            <version>1.14.0</version>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.20.1</version>
-                <configuration>
-                    <argLine>
-                        -javaagent:"${settings.localRepository}"/org/aspectj/
-                        aspectjweaver/${aspectj.version}/
-                        aspectjweaver-${aspectj.version}.jar
-                    </argLine>
-                    <useSystemClassLoader>true</useSystemClassLoader>
-                    <forkMode>always</forkMode>
-                </configuration>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
 
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>aspectj-maven-plugin</artifactId>
+                <version>1.14.0</version>
                 <configuration>
-                    <mainClass>com.example.springbootaop.SpringBootAopApplication</mainClass>
+                    <complianceLevel>1.8</complianceLevel>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <showWeaveInfo>true</showWeaveInfo>
+                    <verbose>true</verbose>
+                    <Xlint>ignore</Xlint>
+                    <encoding>UTF-8</encoding>
+                    <excludes>
+                        <exclude>**/*.java</exclude>
+                    </excludes>
+                    <forceAjcCompile>true</forceAjcCompile>
                 </configuration>
                 <executions>
                     <execution>
+                        <id>default-compile</id>
+                        <phase>process-classes</phase>
                         <goals>
-                            <goal>repackage</goal>
+                            <!-- use this goal to weave all your main classes -->
+                            <goal>compile</goal>
                         </goals>
+                        <configuration>
+                            <weaveDirectories>
+                                <weaveDirectory>${project.build.outputDirectory}</weaveDirectory>
+                            </weaveDirectories>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>default-testCompile</id>
+                        <phase>process-test-classes</phase>
+                        <goals>
+                            <!-- use this goal to weave all your test classes -->
+                            <goal>test-compile</goal>
+                        </goals>
+                        <configuration>
+                            <weaveDirectories>
+                                <weaveDirectory>${project.build.testOutputDirectory}</weaveDirectory>
+                            </weaveDirectories>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
