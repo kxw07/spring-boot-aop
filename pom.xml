@@ -15,6 +15,7 @@
     <description>spring-boot-aop</description>
     <properties>
         <java.version>11</java.version>
+        <aspectj.version>1.9.7</aspectj.version>
     </properties>
     <dependencies>
         <dependency>
@@ -28,33 +29,33 @@
         </dependency>
 
         <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.14</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
-            <version>1.9.7</version>
+            <version>${aspectj.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
-            <version>1.9.7</version>
+            <version>${aspectj.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-instrument</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework</groupId>-->
+<!--            <artifactId>spring-instrument</artifactId>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.26</version>
             <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>aspectj-maven-plugin</artifactId>
-            <version>1.14.0</version>
         </dependency>
 
         <dependency>
@@ -67,71 +68,34 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.20.1</version>
+                <configuration>
+                    <argLine>
+                        -javaagent:"${settings.localRepository}"/org/aspectj/
+                        aspectjweaver/${aspectj.version}/
+                        aspectjweaver-${aspectj.version}.jar
+                    </argLine>
+                    <useSystemClassLoader>true</useSystemClassLoader>
+                    <forkMode>always</forkMode>
+                </configuration>
             </plugin>
 
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>aspectj-maven-plugin</artifactId>
-                <version>1.14.0</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <complianceLevel>1.8</complianceLevel>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                    <showWeaveInfo>true</showWeaveInfo>
-                    <verbose>true</verbose>
-                    <Xlint>ignore</Xlint>
-                    <encoding>UTF-8</encoding>
-                    <excludes>
-                        <exclude>**/*.java</exclude>
-                    </excludes>
-                    <forceAjcCompile>true</forceAjcCompile>
+                    <mainClass>com.example.springbootaop.SpringBootAopApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>
-                        <id>default-compile</id>
-                        <phase>process-classes</phase>
                         <goals>
-                            <!-- use this goal to weave all your main classes -->
-                            <goal>compile</goal>
+                            <goal>repackage</goal>
                         </goals>
-                        <configuration>
-                            <weaveDirectories>
-                                <weaveDirectory>${project.build.outputDirectory}</weaveDirectory>
-                            </weaveDirectories>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>default-testCompile</id>
-                        <phase>process-test-classes</phase>
-                        <goals>
-                            <!-- use this goal to weave all your test classes -->
-                            <goal>test-compile</goal>
-                        </goals>
-                        <configuration>
-                            <weaveDirectories>
-                                <weaveDirectory>${project.build.testOutputDirectory}</weaveDirectory>
-                            </weaveDirectories>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
-            <!--            -javaagent:pathto/spring-instrument-{version}.jar-->
-            <!--            -javaagent:pathto/aspectjweaver-{version}.jar-->
-            <!--            <plugin>-->
-            <!--                <groupId>org.apache.maven.plugins</groupId>-->
-            <!--                <artifactId>maven-surefire-plugin</artifactId>-->
-            <!--                <version>2.22.2</version>-->
-            <!--                <configuration>-->
-            <!--                    <argLine>-->
-            <!--                        -javaagent:/Users/kai/.m2/repository/org/aspectj/-->
-            <!--                        aspectjweaver/1.9.7/-->
-            <!--                        aspectjweaver-1.9.7.jar-->
-            <!--                    </argLine>-->
-            <!--                    <forkMode>always</forkMode>-->
-            <!--                </configuration>-->
-            <!--            </plugin>-->
         </plugins>
     </build>
 
