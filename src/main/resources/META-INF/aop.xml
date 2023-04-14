@@ -1,6 +1,6 @@
 <aspectj>
     <aspects>
-        <aspect name="com.example.springbootaop.config.JavaRestTemplateAspect"/>
+        <aspect name="com.example.springbootaop.config.RestTemplateAspect"/>
     </aspects>
 
     <weaver options="-verbose -showWeaveInfo">

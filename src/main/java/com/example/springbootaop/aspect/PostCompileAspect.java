@@ -1,4 +1,4 @@
-package com.example.springbootaop.config;
+package com.example.springbootaop.aspect;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -6,17 +6,16 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 
 @Aspect
-public class JavaRestTemplateAspect {
-    @Pointcut(value = "execution(* org.springframework.web.client.RestTemplate.exchange(..))")
-    public void exchange() {
+public class PostCompileAspect {
+    @Pointcut(value = "execution(* com.squareup.okhttp.OkHttpClient.newCall(..))")
+    public void execute() {
     }
 
-    @Around("exchange()")
+    @Around("execute()")
     public Object getDoAround(ProceedingJoinPoint joinPoint) throws Throwable {
-        System.out.println("JavaRestTemplateAspect before");
-
+        System.out.println("execute before");
         Object response = joinPoint.proceed();
-        System.out.println("JavaRestTemplateAspect after");
+        System.out.println("execute after");
 
         return response;
     }

@@ -46,10 +46,10 @@
             <version>${aspectj.version}</version>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>org.springframework</groupId>-->
-<!--            <artifactId>spring-instrument</artifactId>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework</groupId>-->
+        <!--            <artifactId>spring-instrument</artifactId>-->
+        <!--        </dependency>-->
 
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -69,6 +69,13 @@
             <artifactId>aspectj-maven-plugin</artifactId>
             <version>1.14.0</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.squareup.okhttp/okhttp -->
+        <dependency>
+            <groupId>com.squareup.okhttp</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>2.7.5</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -78,6 +85,68 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
 
+            <!--This config for Compile-Time Weaving and Load-Time Weaving-->
+            <!--Cannot use Lombok-->
+            <!--            <plugin>-->
+            <!--                <groupId>org.codehaus.mojo</groupId>-->
+            <!--                <artifactId>aspectj-maven-plugin</artifactId>-->
+            <!--                <version>1.14.0</version>-->
+            <!--                <configuration>-->
+            <!--                    <complianceLevel>1.8</complianceLevel>-->
+            <!--                    <source>1.8</source>-->
+            <!--                    <target>1.8</target>-->
+            <!--                    <showWeaveInfo>true</showWeaveInfo>-->
+            <!--                    <verbose>true</verbose>-->
+            <!--                    <Xlint>ignore</Xlint>-->
+            <!--                    <encoding>UTF-8</encoding>-->
+            <!--                </configuration>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <goals>-->
+            <!--                            &lt;!&ndash; use this goal to weave all your main classes &ndash;&gt;-->
+            <!--                            <goal>compile</goal>-->
+            <!--                            &lt;!&ndash; use this goal to weave all your test classes &ndash;&gt;-->
+            <!--                            <goal>test-compile</goal>-->
+            <!--                        </goals>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--            </plugin>-->
+
+            <!--This config for Post-Compile Weaving-->
+            <!--Cannot use Lombok-->
+            <!--            <plugin>-->
+            <!--                <groupId>org.codehaus.mojo</groupId>-->
+            <!--                <artifactId>aspectj-maven-plugin</artifactId>-->
+            <!--                <version>1.14.0</version>-->
+            <!--                <configuration>-->
+            <!--                    <complianceLevel>1.8</complianceLevel>-->
+            <!--                    <source>1.8</source>-->
+            <!--                    <target>1.8</target>-->
+            <!--                    <showWeaveInfo>true</showWeaveInfo>-->
+            <!--                    <verbose>true</verbose>-->
+            <!--                    <Xlint>ignore</Xlint>-->
+            <!--                    <encoding>UTF-8</encoding>-->
+            <!--                    <weaveDependencies>-->
+            <!--                        <weaveDependency>-->
+            <!--                            <groupId>com.squareup.okhttp</groupId>-->
+            <!--                            <artifactId>okhttp</artifactId>-->
+            <!--                        </weaveDependency>-->
+            <!--                    </weaveDependencies>-->
+            <!--                </configuration>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <goals>-->
+            <!--                            &lt;!&ndash; use this goal to weave all your main classes &ndash;&gt;-->
+            <!--                            <goal>compile</goal>-->
+            <!--                            &lt;!&ndash; use this goal to weave all your test classes &ndash;&gt;-->
+            <!--                            <goal>test-compile</goal>-->
+            <!--                        </goals>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--            </plugin>-->
+
+            <!--This config for Compile-Time Weaving and Load-Time Weaving-->
+            <!--Can use Lombok-->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>aspectj-maven-plugin</artifactId>

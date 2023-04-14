@@ -3,7 +3,7 @@ package com.example.springbootaop.controller;
 import lombok.Builder;
 import lombok.Value;
 
-@Builder
+//@Builder
 public class RequestObj {
     private String name;
     private Integer age;
