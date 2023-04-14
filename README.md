@@ -18,10 +18,32 @@ Weaving time 分成三種：
 2. Post-Compile Weaving (aka binary weaving)
 3. Load-Time Weaving
 
+## 相關 lib
+```xml
+<dependency>
+    <groupId>org.aspectj</groupId>
+    <artifactId>aspectjrt</artifactId>
+    <version>1.9.7</version>
+</dependency>
+
+<dependency>
+    <groupId>org.aspectj</groupId>
+    <artifactId>aspectjweaver</artifactId>
+    <version>1.9.7</version>
+</dependency>
+
+<dependency>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>aspectj-maven-plugin</artifactId>
+    <version>1.14.0</version>
+</dependency>
+```
 
 ## Compile-Time Weaving
 使用場景為切在 source code，透過 AspectJ compile(Ajc) 產出加工後的 class。
 有測試成功。
+
+IntelliJ Ajc compile 要安裝 plugin
 
 IntelliJ 如果同時使用 Ajc compile 和 Lombok 要調整以下。
 1. Go to "Compiler" and check "Delegate to javac".
